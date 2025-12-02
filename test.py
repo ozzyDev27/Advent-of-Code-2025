@@ -1,3 +1,4 @@
+
 while False:
     print(int(input("> "))%100)
 initial = 1
