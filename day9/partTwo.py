@@ -16,8 +16,6 @@ for line in lines:
     y = int(coords[1])
     redTiles.append((x, y))
 
-# Build boundaries for each row (y coordinate)
-# Each row tracks the min and max x coordinates that are valid (green or red)
 boundaries = {}
 
 for i in range(len(redTiles)):
@@ -25,7 +23,6 @@ for i in range(len(redTiles)):
     xTwo, yTwo = redTiles[(i + 1) % len(redTiles)]
     
     if xOne == xTwo:
-        # Vertical edge - same x, different y
         for y in range(min(yOne, yTwo), max(yOne, yTwo) + 1):
             if y not in boundaries:
                 boundaries[y] = [xOne, xOne]
@@ -33,7 +30,6 @@ for i in range(len(redTiles)):
                 boundaries[y][0] = min(boundaries[y][0], xOne)
                 boundaries[y][1] = max(boundaries[y][1], xOne)
     else:
-        # Horizontal edge - same y, different x
         if yOne not in boundaries:
             boundaries[yOne] = [min(xOne, xTwo), max(xOne, xTwo)]
         else:
@@ -52,7 +48,6 @@ for i in range(len(redTiles)):
         minY = min(yOne, yTwo)
         maxY = max(yOne, yTwo)
         
-        # Check if this rectangle fits within the boundaries
         valid = True
         for y in range(minY, maxY + 1):
             if y not in boundaries:
